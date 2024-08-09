@@ -5,7 +5,8 @@
 | <a href="#run-the-project">Installation & Run</a> | <a href="#demo-and-screenshots">Demo & Screenshots </a> |
 | :-------- | :-------------------------------- |
 
-##### Live Demo : <a href="https://luaafms.pythonanywhere.com/">https://luaafms.pythonanywhere.com</a>
+##### Live Demo (User app) : <a href="https://luaafms.pythonanywhere.com/">https://luaafms.pythonanywhere.com</a>
+##### Live Demo (Admin app) : <a href="https://luaafms.pythonanywhere.com/manage">https://luaafms.pythonanywhere.com/manage</a>
 
 ##### About
 
@@ -52,7 +53,6 @@ This is a web-app made with django consisting of two separate apps. One is for u
 
 > Technical deatils
 
-    % Backend %
     - Frameowk : Django, Django Rest Framework, Django channels for web socket
     - ASGI server : Daphne
     - Worker : Celery
@@ -130,9 +130,10 @@ python manage.py runserver
 
 ## Demo and Screenshots
 
-### Airline App Demo
+### User Demo
+![A video showing the demo of the user application. Compression made teh video quality a little bad :))](ref/user.webm)
 
-### User App Demo
+### Admin App Demo
 
 
 
