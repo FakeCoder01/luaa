@@ -61,6 +61,10 @@ This is a web-app made with django consisting of two separate apps. One is for u
     - Front-end : HTML, JavaScript, CSS, TailwindCSS
 
 
+#### Database Schema
+![Database Schema](ref/db_schema.png "Database schema of the whole application")
+
+
 ## Run the project:
 
 

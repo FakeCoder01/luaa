@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-# sds%&^afsgYA?"}((*ASD78675
+
 ASGI_APPLICATION = 'fms.asgi.application'
 
 
