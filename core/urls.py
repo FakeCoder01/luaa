@@ -3,7 +3,7 @@ from . import views
 from . import ticket_download
 urlpatterns = [
 
-    path('', views.homepage, name="homepage"),
+    path('', views.search_flight, name="homepage"),
     
     path('login/', views.login_user, name="login_user"),
     path('signup/', views.signup_user, name="signup_user"),

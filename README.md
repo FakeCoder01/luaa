@@ -1,11 +1,65 @@
 # Luaa
 
-# Flight Management System
+# Flight Tikcet Booking & Management System
 
 | <a href="#run-the-project">Installation & Run</a> | <a href="#demo-and-screenshots">Demo & Screenshots </a> |
 | :-------- | :-------------------------------- |
 
 ##### Live Demo : <a href="https://luaafms.pythonanywhere.com/">https://luaafms.pythonanywhere.com</a>
+
+##### About
+
+This is a web-app made with django consisting of two separate apps. One is for users and the other one is for admin. The admin application can be accessed at <a href="https://luaafms.pythonanywhere.com/manage">/manage</a>.
+
+
+> The users can perform the following operations
+
+    - Registration and Login/Logout
+    - Profile creation & update
+    - Search flights between two airports
+    - Filter the search by date, time
+    - Select between different seat types (economy, business, first)
+    - Option to find both direct and connecting flights
+    - Sort the results by price, travel time
+    - Book a flight ticket by providing passenger info (autofills from profile)
+    - Handles seat availability for each seat category
+    - Pay using any card/UPI or other methods
+    - See all the bookings and issued tickets
+    - Tickets are issued automaticaly which can be downloaded
+    - See all the payment History
+    - Chat with customer support in real-time (Websocket)
+    - Update Login credentials
+
+
+> The admin can perform the following operations
+
+    - Login/Logout (more admin accounts can be created from django admin panel)
+    - Add/Remove/Modify Airports and its details
+    - Add/Remove/Modity Flights
+    - Manage seating configuration for each flight with different seat category
+    - Manage price for each flight for each seat category
+    - See/Modify all the users and passengers in the system and see their bookings
+    - See all the payment details, status of payment
+    - See all the bookings made and tickets issued
+    - Search flight for a particular date/time or after/before for any flight number
+    - Global full-text search for all the users, bookings, tickets, payments, flights, airports
+    - See all the bookings for a flight
+    - See Analytics and Stats for each flight such as revenue, seat booking percentage etc.
+    - Admin dashboard with analytics such as current sale, flights, bookings and users
+    - Real time chat with all customers (Websocket)
+    - Send newsletter emails
+
+
+> Technical deatils
+
+    % Backend %
+    - Frameowk : Django, Django Rest Framework, Django channels for web socket
+    - ASGI server : Daphne
+    - Worker : Celery
+    - Broker : Redis
+    - Database : PostgreSQL (for test : sqlite)
+    - Front-end : HTML, JavaScript, CSS, TailwindCSS
+
 
 ## Run the project:
 
