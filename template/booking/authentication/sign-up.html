@@ -1,0 +1,176 @@
+{% include 'booking/sections/header.html' %}
+{% load static %}
+<title>{{page_title}}</title>
+
+</head>
+
+<body>
+    {% include 'booking/sections/nav-bar.html' %}
+
+    {% if messages %}
+        <div class="alerts-list absolute right-0 mr-4">
+            {% for message in messages %}
+                <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="conatiner">
+
+        <section class="bg-gray-100">
+            <div class="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+                    <div class="lg:col-span-2 lg:py-12">
+                        <p class="max-w-xl text-lg">
+                            We beleive travelling should never stop. Find and book more flights of Luaa Airways from your Smartphone.
+                            Zero fee on all flight booking. <span class="block italic font-bold text-5xl text-red-500">Happy Flying :)</span>
+                        </p>
+
+                        <div class="mt-10">
+                            <a href="tel:+01234567890" class="text-2xl font-bold text-pink-600">
+                                +0 123 456 78 90
+                            </a>
+
+                            <address class="mt-2 not-italic">
+                                1056 Lake Town, Dum Dum, KOL 700100
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+
+                        <h1 class="text-center text-2xl font-semibold text-red-500 sm:text-3xl mb-2">
+                            Create an account with Luua
+                        </h1>
+
+                        <form action="" class="space-y-4" method="POST" autocomplete="off">
+                            {% csrf_token %}
+
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    <label class="text-sm font-medium" for="first_name">First name</label>
+                                    <input class="w-full rounded-lg border-gray-200 p-3 text-sm" autocomplete="off"
+                                        placeholder="Your First Name" type="text" id="first_name" name="first_name" required/>
+                                </div>
+
+                                <div>
+                                    <label class="text-sm font-medium" for="last_name">Last name</label>
+                                    <input class="w-full rounded-lg border-gray-200 p-3 text-sm" autocomplete="off"
+                                        placeholder="Your Last Name" type="text" id="last_name" name="last_name" required/>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div>
+                                    <label class="text-sm font-medium" for="email">Email</label>
+                                    <input class="w-full rounded-lg border-gray-200 p-3 text-sm" autocomplete="off"
+                                        placeholder="Email address" type="email" id="email" name="email" required/>
+                                </div>
+                            </div>
+
+                            <!-- <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+                                <div>
+                                    <input class="sr-only" id="option1" type="radio" tabindex="-1" />
+                                    <label for="option1" class="block w-full rounded-lg border border-gray-200 p-3"
+                                        tabindex="0">
+                                        <span class="text-sm font-medium"> Option 1 </span>
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="sr-only" id="option2" type="radio" tabindex="-1" />
+                                    <label for="option2" class="block w-full rounded-lg border border-gray-200 p-3"
+                                        tabindex="0">
+                                        <span class="text-sm font-medium"> Option 2 </span>
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="sr-only" id="option3" type="radio" tabindex="-1" />
+                                    <label for="option3" class="block w-full rounded-lg border border-gray-200 p-3"
+                                        tabindex="0">
+                                        <span class="text-sm font-medium"> Option 3 </span>
+                                    </label>
+                                </div>
+                            </div> -->
+
+                            <!-- <div>
+                                <label class="sr-only" for="message">Message</label>
+                                <textarea class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Message"
+                                    rows="8" id="message"></textarea>
+                            </div> -->
+
+
+                            <div>
+                                <label for="password" class="text-sm font-medium">Password</label>
+        
+                                <div class="relative mt-1">
+                                    <input type="password" id="password"
+                                        class="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm" autocomplete="off"
+                                        placeholder="Enter password" name="password" required/>
+        
+                                    <span class="absolute inset-y-0 right-4 inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+
+                            <div>
+                                <label for="confirm_password" class="text-sm font-medium">Confirm password</label>
+        
+                                <div class="relative mt-1">
+                                    <input type="password" id="confirm_password"
+                                        class="w-full rounded-lg border-gray-400 p-4 pr-12 text-sm shadow-sm" autocomplete="off" 
+                                        placeholder="Enter password again" name="confirm_password" required/>
+        
+                                    <span class="absolute inset-y-0 right-4 inline-flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="mt-4">
+                                <button type="submit"
+                                    class="inline-flex w-full items-center justify-center rounded-lg bg-red-600 px-5 py-3 text-white sm:w-auto">
+                                    <span class="font-medium"> Register </span>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-3 h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                        <p class="text-end  text-sm text-gray-500">
+                            Have an account?
+                            <a class="underline" href="/login?">Log in</a>
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+    {% include 'booking/sections/footer.html' %}

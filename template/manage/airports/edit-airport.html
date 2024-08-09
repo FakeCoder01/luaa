@@ -1,0 +1,116 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>Add Airport | Luaa</title>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+                {% if messages %}
+                    <div class="alerts-list absolute right-0 mr-4">
+                        {% for message in messages %}
+                            <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-xl text-base text-gray-900 dark:text-gray-50">Add a New Airport
+                        </h3>
+                    </div>
+
+                </div>
+
+
+
+                <form action="" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <section class="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-10">
+                        <h1 class="text-xl font-bold text-white capitalize dark:text-white">Airport information</h1>
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="airport_name">Airport Name</label>
+                                <input id="airport_name" type="text" name="airport_name" required autocomplete="off" value="{{airport.airport_name}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                         
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="airport_city">City</label>
+                                <input id="airport_city" type="text"  name="airport_city" required autocomplete="off" value="{{airport.airport_city}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="iata_code">IATA Code</label>
+                                <input id="iata_code" type="text" name="iata_code" required maxlength="3" minlength="3" autocapitalize="on" value="{{airport.iata_code}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="icao_code">ICAO Code
+                                </label>
+                                <input id="icao_code" type="text" name="icao_code" required maxlength="4" minlength="4" autocapitalize="on" value="{{airport.icao_code}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="airport_country">Country</label>
+                                <input id="airport_country" type="text" name="airport_country" required autocomplete="off" value="{{airport.airport_country}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="airport_type">Airport Type</label>
+                                <select name="airport_type" required id="airport_type"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    <option value="{{airport.airport_type}}" selected>{{airport.airport_type}}</option>
+                                    <option value="International">International</option>
+                                    <option value="Domestic">Domestic</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+ 
+                           
+                        </div>
+
+                       
+
+
+
+                    </section>
+                    <div class="flex justify-center text-xl mt-6">
+                        <button type="submit"
+                            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+                            Update</button>
+                    </div>
+                </form>
+
+  
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+</html>

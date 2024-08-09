@@ -1,0 +1,155 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>All Flights | Luaa</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+                <div class="alerts-list absolute right-0 mr-4" id="alerts-list">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div onclick="this.style.display='none';"
+                        class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h2 class="font-semibold text-base text-gray-900 dark:text-gray-50">All Flights </h2>
+                    </div>
+
+
+                    <div class="flex flex-wrap items-center space-x-3 space-y-1">
+                        <div class="rounded">
+                            <input class="px-3 py-2 text-purple-800 font-semibold" style="width: 200px;" maxlength="10"
+                                placeholder="Flight Number.." type="text" name="flight_number_search" id="flight_number_search">
+                        </div>
+                        <div>
+                            <input class="px-3 py-2 text-purple-800 font-semibold" 
+                                placeholder="When to search" type="date" name="flight_date_search" id="flight_date_search">
+                        </div>
+                        <div>
+                            <input class="px-3 py-2 text-purple-800 font-semibold" 
+                                placeholder="Which time you want a flight" type="time" name="flight_time_search" id="flight_time_search">
+                        </div>
+                        <div>
+                            <select class="px-3 py-[10px] text-purple-800 font-semibold"  name="flight_pad_search" id="flight_pad_search">
+                                <option disabled>Select search type</option>
+                                <option value="exact" selected>On Exact</option>
+                                <option value="after">After</option>
+                                <option value="before">Before</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button onclick="SearchAdminFlightFilter();"
+                                class="rounded-lg bg-pink-300 text-blue-700 px-2 py-[6px] text-xl mx-1 font-semibold" type="submit"
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative w-full max-w-full flex-grow flex-1  text-right">
+                        <button onclick="window.location.href='/manage/flights/add/';"
+                            class="text-sm bg-blue-500 hover:bg-yellow-300 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button">Add a Flight</button>
+                    </div>
+                </div>
+
+
+                <!-- Flight Table -->
+                <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr
+                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3">Flight Number</th>
+                                        <th class="px-4 py-3">Origin</th>
+                                        <th class="px-4 py-3">Destination</th>
+                                        <th class="px-4 py-3">Departure</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" id="farted_table_flights_data">
+                                    
+                                    {% for x in flights %}
+
+                                    
+                                    <tr onclick="window.location.href='/manage/flights/{{x.uid}}';" class="bg-gray-50 cursor-pointer dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        
+                                        <td class="px-4 py-3 text-sm">{{x.flight_number}}</td>
+
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div>
+                                                    <p class="font-semibold">{{x.origin_airport.iata_code}}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{x.origin_airport.airport_city}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div>
+                                                    <p class="font-semibold">{{x.destination_airport.iata_code}}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{x.destination_airport.airport_city}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div>
+                                                    <p class="font-semibold">{{x.departure_date}}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{x.departure_time}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                            <span class="col-span-2"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Flight Table -->
+
+  
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+    <script src="/static/js/filter-search-admin-flights.js"></script>
+</html>

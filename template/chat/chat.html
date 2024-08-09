@@ -1,0 +1,155 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+<!-- Manager Page-->
+    <title>Chat Support | Luaa</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"></script>
+    <script src="/static/js/manage-chat.js"></script>
+    <script src="/static/js/older-chats.js"></script>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+                {% if messages %}
+                    <div class="alerts-list absolute right-0 mr-4">
+                        {% for message in messages %}
+                            <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold pr-20 text-xl mr-20 inline-block text-base text-gray-900 dark:text-gray-50 mb-2">Chat Support
+                        </h3>
+                        <button class="px-3 py-1 rounded font-semibold text-white ml-20 bg-green-500 hover:bg-green-600" onclick="javascript:ChatGroupShowAndRefresh();">Refresh</button>
+                    </div>
+
+                </div>
+
+
+
+
+
+                <!-- Component Start -->
+                <div class="flex flex-grow pt-4 justify-center w-full min-h-screen bg-gray-100 text-gray-800 ">
+                    
+                    <div style="width: 400px; overflow-y: scroll; overflow-x: hidden;"
+                        class="mr-10 xs:mr-3 md:mr-3">
+                        
+                        <ul class="bg-slate-900 p-2" id="chat-message-group-list-area">
+
+                     
+                        </ul>
+                    </div>
+
+                    <!-- Component Start -->
+                    <div
+                        class="flex flex-col flex-grow w-full mr-2 max-w-xl bg-red-100 shadow-xl rounded-lg overflow-hidden">
+                    
+                            <p class="text-center"><button id="old-btn" class="my-3 px-3 py-1 rounded font-semibold text-white ml-20 bg-purple-400 hover:bg-purple-500" onclick="javascript:ShowOlderChatMessage('{{profile_id}}');">Older Chats</button></p>
+                
+                        <div class="flex flex-col flex-grow h-0 p-4 overflow-auto" id="messages">
+            
+                            
+                        </div>
+            
+                        <div id="siview" class="bg-gray-300 p-4">
+                            <form id="form" autocomplete="off">
+                                <input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text" id="message" 
+                                    placeholder="Type your message…" name="message" >
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Component End  -->
+            
+                    
+            
+                </div>
+                <!-- Component End  -->
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        const client_type = "m";
+        document.getElementById("siview").scrollIntoView();
+        let w_url = `ws://${window.location.host}/ws/socket-server/chat/?group={{profile_id}}`
+
+        const chatSocket = new WebSocket(w_url);
+
+        chatSocket.onmessage = function (e) {
+            let data = JSON.parse(e.data)
+            // console.log('Data:', data)
+
+            if (data.type === 'chat') {
+                let messages = document.getElementById('messages')
+
+                if (data.sender === 'manager') {
+                    messages.insertAdjacentHTML('beforeend',
+                        `<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                            <div>
+                                <div class="bg-red-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                                     <p class="text-sm">${data.message} </p>
+                                </div>
+                                <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+                            </div>
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                                <img src="{% static '/images/logo/logo-icon.png' %}" alt="Icon" class="h-10 w-10 rounded-full" srcset="">
+                            </div>
+                        </div>`
+                    );
+                }
+                else if (data.sender === 'user') {
+                    messages.insertAdjacentHTML('beforeend',
+                        `<div class="flex w-full mt-2 space-x-3 max-w-xs">
+                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                            <div>
+                                <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                                    <p class="text-sm">${data.message}</p>
+                                </div>
+                                <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+                            </div>
+                        </div> `
+                    );
+                }
+                else {
+
+                }
+            }
+        }
+        
+        let form = document.getElementById('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let message = e.target.message.value
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'chat_group_id': "{{profile_id}}",
+                'sender': "manager"
+            }));
+            form.reset();
+        });
+        
+
+    </script>
+    {% include 'manage/sections/footer.html' %}
+
+</html>

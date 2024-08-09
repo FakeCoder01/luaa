@@ -1,0 +1,30 @@
+{% include 'booking/sections/header.html' %}
+{% load static %}
+<title>Luaa | Home</title>
+
+</head>
+<body>
+    {% include 'booking/sections/nav-bar.html' %}
+
+    {% if messages %}
+        <div class="alerts-list absolute right-0 mr-4">
+            {% for message in messages %}
+                <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                    {{message}}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+    <div style="display: block; margin: auto;"> 
+        {% for x in flights %}
+            <div class="px-4 py-3 m-4 text-3xl font-semibold text-red-800 w-1/5 bg-yellow-200 rounded border-blue-300 border-4 underline">
+                <a href="/flight/{{x.uid}}">{{x}}</a>
+               
+            </div>
+        {% endfor %}
+    </div>
+
+
+    {% include 'booking/sections/footer.html' %}

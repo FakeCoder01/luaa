@@ -1,0 +1,247 @@
+{% include 'booking/sections/header.html' %}
+{% load static %}
+<title>{{page_title}}</title>
+
+</head>
+
+<body>
+    {% include 'booking/sections/nav-bar.html' %}
+
+    {% if messages %}
+    <div class="alerts-list absolute right-0 mr-4">
+        {% for message in messages %}
+        <div onclick="this.style.display='none';"
+            class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+            {{message}}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="mx-8 my-8 lg:mx-32 sm:mx-8 lg:my-10 sm:my-8">
+        <div>
+            <div class="overflow-hidden rounded-full bg-gray-200">
+                <div class="h-2 w-10 rounded-full bg-red-400"></div>
+            </div>
+
+            <ol class="mt-4 grid grid-cols-3 text-sm font-medium text-gray-500">
+                <li class="cursor-pointer  flex items-center justify-start text-red-600">
+                    <span class="hidden sm:inline"> Flight </span>
+
+
+                    <svg viewBox="0 0 64 64" data-testid="tripDetails-bound-plane-icon" pointer-events="all"
+                        class="h-6 w-6 sm:ml-2 sm:h-5 sm:w-5" aria-hidden="true" stroke-width="2" role="presentation"
+                        style="stroke: #6b72809a ; fill: #6b72809a;">
+                        <path
+                            d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z">
+                        </path>
+                    </svg>
+                </li>
+
+                <li class="cursor-pointer flex items-center justify-center ">
+                    <span class="hidden sm:inline"> Information </span>
+
+                    <svg class="h-6 w-6 sm:ml-2 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                    </svg>
+                </li>
+
+                <li class="cursor-pointer flex items-center justify-end">
+                    <span class="hidden sm:inline"> Payment </span>
+
+                    <svg class=" h-6 w-6 sm:ml-2 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <button onclick="flight_info_table_SHOW_HIDE();" style="width: 100px; display: block;" class="m-4 bg-red-400 px3 py-2 rounded">Flight Info</button>
+    <div style="display: inline-block; width: 400px; max-width: 400px; overflow:scroll">
+        <table id="flight_info_table"  class="mx-4 bg-black w-full items-center">
+            <thead>
+                <th class="text-red-400">Flight information</th>
+            </thead>
+            <tbody class="bg-black">
+                    <tr class="bg-black text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Flight Number</th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.flight_number}}</td>
+                    </tr>
+        
+                    <tr class="text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Departure Airport</th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.origin_airport.iata_code}}, {{flight.origin_airport.airport_city}}
+                        </td>
+                    </tr>
+        
+                    <tr class="text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Departure Date Time
+                        </th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.departure_date}} {{flight.departure_time}}
+                        </td>
+                    </tr>
+        
+                    <tr class="text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Arrival Airport
+                        </th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.destination_airport.iata_code}}, {{flight.destination_airport.airport_city}}
+                        </td>
+                    </tr>
+        
+                    <tr class="text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Arrival Date Time
+                        </th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.arrival_date}} {{flight.arrival_time}}
+                        </td>
+                    </tr>
+        
+        
+        
+                    <tr class="text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Airport Origin</th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.origin_airport.airport_name}}</td>
+                    </tr>
+        
+                    <tr class="text-gray-700 dark:text-gray-100">
+                        <th
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                            Airport Destination</th>
+            
+                        <td
+                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                            {{flight.destination_airport.airport_name}}</td>
+                    </tr>
+        
+                    
+            </tbody>
+        </table>
+    </div>
+    
+
+
+    <article style="display: inline-block;" id="tckt-list" class="ml-4 rounded-xl border border-gray-700 bg-gray-800 px-10 py-8 lg:w-3/5 w-full sm:mx-4 mx-4 lg:mx-0">
+        <div class="flex items-center">
+
+
+            <div class="ml-3">
+                <h3 class="text-lg font-medium text-white">{{flight.flight_number}}</h3>
+
+                <div class="flow-root">
+                   
+                </div>
+            </div>
+        </div>
+        <form action="" method="POST" style="font-size: 20px;">
+            {% csrf_token %}
+
+            <ul class="mt-4 space-y-2 " style="display: block; margin: auto;">
+
+                <li class="block cursor-pointer input-seat-type-all">
+                    <input type="radio"  name="seat_class" id="economy_fare" value="economy_fare" required>
+                    <label for="economy_fare" class="booking-input-label inline-block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
+                        <strong class="font-medium text-white">Economy Class</strong>
+                        <strong class="font-medium text-green-400  float-right">Rs &nbsp;{{flight_info.pricing.economy}}</strong>
+                        <p class="mt-1 text-xs font-medium text-gray-300">
+                            No changing is not possible. Seat selection is paid. One piece hand luggage upto 10kg & one carry-on luggage upto 23kg
+                        </p>
+                    </label>
+                </li>
+
+                <li class="block cursor-pointer input-seat-type-all">
+                    <input type="radio"  name="seat_class" id="business_fare" value="business_fare" required>
+                    <label for="business_fare" class="booking-input-label inline-block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
+                        <strong class="font-medium text-white">Business Class</strong>
+                        <strong class="font-medium text-green-400 float-right">Rs &nbsp;{{flight_info.pricing.business}}</strong>
+                        <p class="mt-1 text-xs font-medium text-gray-300">
+                            Fees on changing. Seat selection free. One piece of hand luggage upto 15kg & two carry-on luggages upto 23kg each bag
+                        </p>
+                    </label>
+                </li>
+
+                <li class="block curser-pointer input-seat-type-all">
+                    <input type="radio"  name="seat_class" id="first_fare" value="first_fare" required>
+                    <label for="first_fare" class="booking-input-label inline-block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
+                        <strong class="font-medium text-white">First Class</strong>
+                        <strong class="font-medium text-green-400 float-right">Rs &nbsp;{{flight_info.pricing.first}}</strong>
+                        <p class="mt-1 text-xs font-medium text-gray-300">
+                            Free changing. Free seat selection. Free food & wifi. Two luggages upto 40kg each & cabin bag of 15kg. Priority boarding .
+                        </p>
+                    </label>
+                </li>
+            </ul>
+
+            <button type="submit" class="flex bg-red-500 text-center px-3 py-2 rounded text-white mt-4 justify-end">Book now</button>
+        </form>
+    </article>
+
+    
+
+
+
+
+
+
+
+ <script>
+    function flight_info_table_SHOW_HIDE(){
+        
+        const tableDiv = document.getElementById("flight_info_table");
+        if(tableDiv.hidden === false){
+            tableDiv.hidden = true;
+            tableDiv.style.overflowX = 'none';
+        }else{
+            tableDiv.hidden = false;
+            tableDiv.style.overflowX = 'scroll';
+        }
+    }
+    
+    // const allLabels = document.querySelectorAll(".input-seat-type-all");
+    // document.querySelectorAll(".booking-input-label").onclick.forEach(label => 
+    //     label.onclick = function() {
+    //         console.log("in onclick");
+    //         console.log(this.id);
+    //     }
+    // )
+ </script>
+
+
+
+
+
+
+
+    {% include 'booking/sections/footer.html' %}

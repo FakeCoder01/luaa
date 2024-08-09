@@ -1,0 +1,192 @@
+{% include 'booking/sections/header.html' %}
+{% load static %}
+<title>{{page_title}}</title>
+<link rel="stylesheet" href="{% static '/css/airport-autocomplete.css' %}">
+
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.js"></script>  -->
+<script src="{% static '/js/auto-complete.js' %}"></script>
+</head>
+
+<body>
+    {% include 'booking/sections/nav-bar.html' %}
+
+    <div class="alerts-list absolute right-0 mr-4" id="alerts-list">
+        {% if messages %}
+        {% for message in messages %}
+        <div onclick="this.style.display='none';"
+            class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+    <div class="main">
+
+
+
+        <header aria-label="Page Header" class="bg-green-50">
+            <div class="mx-auto max-w-screen-xl px-4 py-2 sm:px-4 ">
+                <div class="flex  justify-start gap-4">
+                    <h1 class="text-red-500 font-bold text-4xl ">Book from our flights,</h1>
+                </div>
+
+                <div class="mt-2">
+                    <!-- component -->
+                    <div class="border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-2 gap-2 border border-gray-200 p-2 rounded">
+                                <div title="Enter origin airport"
+                                    class="flex border rounded bg-red-100 items-center p-2 ">
+                                    <svg class="h-6 w-6 sm:ml-2 sm:h-5 sm:w-5 text-gray-800 mr-2 w-5"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <input type="text" name="origin" required placeholder="Enter origin here..."
+                                        id="origin" list="airport_list"
+                                        class="bg-red-100 cursor-pointer max-w-full focus:outline-none text-gray-800" />
+
+
+                                </div>
+                                <div  title="Enter destination airport"
+                                    class="flex border rounded bg-red-100 items-center p-2 ">
+
+                                    <svg class="fill-current text-gray-800 mr-2 w-5" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path class="heroicon-ui" 
+                                            d="M14 5.62l-4 2v10.76l4-2V5.62zm2 0v10.76l4 2V7.62l-4-2zm-8 2l-4-2v10.76l4 2V7.62zm7 10.5L9.45 20.9a1 1 0 0 1-.9 0l-6-3A1 1 0 0 1 2 17V4a1 1 0 0 1 1.45-.9L9 5.89l5.55-2.77a1 1 0 0 1 .9 0l6 3A1 1 0 0 1 22 7v13a1 1 0 0 1-1.45.89L15 18.12z" />
+                                    </svg>
+
+
+
+                                    <input type="text" name="destination" id="destination" name="destination"
+                                        placeholder="Enter destination here..." list="airport_list"
+                                        class="bg-red-100 cursor-pointer max-w-full focus:outline-none text-gray-700"
+                                        required />
+
+                                        
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 border border-gray-200 p-2 rounded">
+                                <div title="Enter departure date"
+                                    class="flex border rounded bg-red-100 items-center p-2 ">
+                                    <svg class="fill-current text-gray-800 mr-2 w-5" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path class="heroicon-ui"
+                                            d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM5.68 7.1A7.96 7.96 0 0 0 4.06 11H5a1 1 0 0 1 0 2h-.94a7.95 7.95 0 0 0 1.32 3.5A9.96 9.96 0 0 1 11 14.05V9a1 1 0 0 1 2 0v5.05a9.96 9.96 0 0 1 5.62 2.45 7.95 7.95 0 0 0 1.32-3.5H19a1 1 0 0 1 0-2h.94a7.96 7.96 0 0 0-1.62-3.9l-.66.66a1 1 0 1 1-1.42-1.42l.67-.66A7.96 7.96 0 0 0 13 4.06V5a1 1 0 0 1-2 0v-.94c-1.46.18-2.8.76-3.9 1.62l.66.66a1 1 0 0 1-1.42 1.42l-.66-.67zM6.71 18a7.97 7.97 0 0 0 10.58 0 7.97 7.97 0 0 0-10.58 0z" />
+                                    </svg>
+                                    <input type="date" placeholder="Enter departure date..." name="departure_date"
+                                        id="departure_date"
+                                        class="bg-red-100 cursor-pointer max-w-full focus:outline-none text-gray-700" />
+                                </div>
+                                <div title="Enter return date"
+                                    class="flex border rounded bg-red-100 items-center p-2 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="text-gray-800 mr-2 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <input type="time" placeholder="Enter departure time" name="departure_time"
+                                        id="departure_time"
+                                        class="bg-red-100 cursor-pointer max-w-full focus:outline-none text-gray-700" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <datalist id="airport_list">
+                            {% for x in airports %}
+                                <option value="{{x.iata_code}}">{{x.airport_name}}, {{x.airport_city}}, {{x.iata_code}}, , {{x.icao_code}}, {{x.airport_country}}</option>
+                            {% endfor %}
+                        </datalist>
+
+                        <div class=" inline-block">
+                            <div class="inline-block">
+                                <select class="border p-2 rounded" name="return_flight" id="return_flight" required>
+                                    <option disabled> Trip type</option>
+                                    <option selected value="False">One Way</option>
+                                    <option value="True" disabled>Round trip</option>
+                                </select>
+                            </div>
+                            <div class="inline-block pt-2 md:pt-0 md:pl-6">
+                                <select class="border p-2 rounded" name="seat_class" id="seat_class" required>
+                                    <option disabled> Seat class</option>
+                                    <option selected value="economy_fare">Economy</option>
+                                    <option value="business_fare">Business</option>
+                                    <option value="first_fare">First</option>
+                                </select>
+                            </div>
+                            <div class=" inline-block pt-2 md:pt-0 md:pl-6">
+                                <select class="border p-2 rounded" name="flight_type" id="flight_type" required>
+                                    <option disabled>Flight type</option>
+                                    <option value="direct" selected>Only direct flights</option>
+                                    <option value="connecting">Connecting flights</option>
+                                    <option value="all">All flights</option>
+                                </select>
+                            </div>
+
+
+                            <div class=" inline-block pt-2 md:pt-0 md:pl-6 " style="float: right;">
+                                <button type="search" onclick="SearchFlight();"
+                                    class="p-2 border font-xl font-semibold hover:bg-red-600 rounded-md bg-red-500 text-white px-8">Search</button>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+
+        <div class="mt-2 lg:mx-12 sm:mx-12">
+            <hr>
+            <div class=" p-1 bg-gray-100 ">
+                <h1 class="uppercase inline font-bold text-gray-500 pl-1">Total <span id="flight_count">(loading..)</span>
+                    flights found</h1>
+                <div class="bg-gray-500 cursor-pointer right-0 mr-4" style="float: right;">
+                    <select name="sort_key" class="cursor-pointer font-semibold text-violet-500 bg-green-50"
+                        id="sort_key" onchange="sort_filter();">
+                        <option selected>Sort by</option>
+                        <option value="price">Cheapest</option>
+                        <option value="time">Fastest</option>
+                        <option value="stops">Stopage</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-results">
+            <div class="display-results w-600 lg:mx-10 sm:mx-6" id="search-flights">
+               
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="{% static '/js/search-flights.js' %}"></script>
+    {% include 'booking/sections/footer.html' %}
+
+
+
+

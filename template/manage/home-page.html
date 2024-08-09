@@ -1,0 +1,374 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>Dashboard | Manage Luaa</title>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+                    <div
+                        class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                        <div
+                            class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                            
+
+                            <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            
+                            
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl">{{total_flights_booked}}</p>
+                            <p>Flights Booked</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                        <div
+                            class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                            
+                            <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                            
+                            
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl">Rs {{total_amount}}</p>
+                            <p>Total Sale</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                        <div
+                            class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                            
+                            <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                            
+                            
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl">{{total_flights}}</p>
+                            <p>Total Flights</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                        <div
+                            class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                            <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl">{{total_users}}</p>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Statistics Cards -->
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
+
+                    <!-- Flight Status -->
+                    <div class="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+                        <div class="rounded-t mb-0 px-0 border-0">
+                            <div class="flex flex-wrap items-center px-4 py-2">
+                                <div class="relative w-full max-w-full flex-grow flex-1">
+                                    <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Recent Flights
+                                    </h3>
+                                </div>
+                                <div class="relative w-full max-w-full flex-grow flex-1 text-right">
+                                    <button onclick="window.location.href='/manage/flights/';"
+                                        class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        type="button">See all</button>
+                                </div>
+                            </div>
+                            <div class="block w-full overflow-x-auto">
+                                <table class="items-center w-full bg-transparent border-collapse">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Flight</th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Current Amount</th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                                            Percentage Booked</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for x in last_five_flights_details %}
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer cursor-pointer hover:bg-red-400 hover:bg-opacity-5" onclick="window.location.href='/manage/flights/{{x.uid}}/'">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                {{x.flight_number}}</th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{x.current_amount}}</td>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                <div class="flex items-center">
+                                                    <span class="mr-2">{{x.percentage_booked}}</span>
+                                                    <div class="relative w-full">
+                                                        <div 
+                                                            class="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
+                                                            <div style="width: {{x.percentage_booked}}%"
+                                                                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-600">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./Flight Status -->
+
+
+                    <!-- Payments  -->
+                    <div
+                        class="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+                        <div class="rounded-t mb-0 px-0 border-0">
+                            <div class="flex flex-wrap items-center px-4 py-2">
+                                <div class="relative w-full max-w-full flex-grow flex-1">
+                                    <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Recent Payments
+                                    </h3>
+                                </div>
+                                <div class="relative w-full max-w-full flex-grow flex-1 text-right">
+                                    <button onclick="window.location.href='/manage/payments/';"
+                                        class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        type="button">See all</button>
+                                </div>
+                            </div>
+                            <div class="block w-full overflow-x-auto">
+                                <table class="items-center w-full bg-transparent border-collapse">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Payment Id</th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Flight </th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                                                Amount
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for x in last_five_payments %}
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                {{x.payment_id}}</th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{x.flight}}</td>
+                                                <td
+                                                class="border-t-0 px-4 {% if x.status %} text-green-600 {% else%} text-red-600 {% endif %} align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{x.amount}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./Payments -->
+
+                </div>
+
+                <div class="flex flex-wrap bg-black-500 items-center px-4 py-2">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Recent Bookings
+                        </h3>
+                    </div>
+                    <div class="relative w-full max-w-full flex-grow flex-1 text-right">
+                        <button onclick="window.location.href='/manage/tickets/';"
+                            class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button">See all</button>
+                    </div>
+                </div>
+
+
+                <!-- Booking Table -->
+                <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr
+                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3">Customer</th>
+                                        <th class="px-4 py-3">PNR Code</th>
+                                        <th class="px-4 py-3">Flight Number</th>
+                                        <th class="px-4 py-3">Seat Catagory</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                    
+                                    {% for x in last_five_bookings %}
+
+                                    <tr class="bg-gray-50 cursor-pointer dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400" onclick="window.location.href='/manage/tickets/{{x.uid}}/'">
+                                        
+                                         
+                                            <td class="px-4 py-3">
+                                                <div class="flex items-center text-sm">
+                                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                                        <img class="object-cover w-full h-full rounded-full"
+                                                            src="{% static '/images/logo/logo-icon.png' %}"
+                                                            alt="" loading="lazy" />
+                                                        <div class="absolute inset-0 rounded-full shadow-inner"
+                                                            aria-hidden="true"></div>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-semibold">{{x.person_name}}</p>
+                                                        <p class="text-xs text-gray-600 dark:text-gray-400">{{x.profile}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm">{{x.pnr_code}}</td>
+                                            <td class="px-4 py-3 text-xs">
+                                                <span
+                                                    class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                                    {{x.flight}} </span>
+                                            </td>
+                                            <td class="px-4 py-3 text-sm">{{x.seat_type}}</td>
+                                        
+                                    </tr>
+
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                            <span class="col-span-2"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Booking Table -->
+
+                <!-- Send Email -->
+                <div class="mt-8 mx-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-6 mr-2 bg-gray-100 dark:bg-gray-800 sm:rounded-lg">
+                            <h1 class="text-4xl sm:text-5xl text-gray-800 dark:text-white font-extrabold tracking-tight">
+                                Send an Email
+                            </h1>
+                            <p class="text-normal text-lg sm:text-2xl font-medium text-gray-600 dark:text-gray-400 mt-2">
+                                Fill in the form to send an email</p>
+                            <p class="text-normal  sm:text-xl font-normal text-info-600 dark:text-info-400 mt-2" >
+                                Use commma to separate Email addresses to send email to multiple people at once
+                            </p>
+
+                        </div>
+                        <div class="p-6 flex flex-col justify-center">
+                            <div class="flex flex-col">
+                                <label for="name" class="hidden">Subject</label>
+                                <input type="text" name="subject" id="subject" placeholder="Subject"
+                                    class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+                            </div>
+
+                            <div class="flex flex-col mt-2">
+                                <label for="email" class="hidden">Email</label>
+                                <input type="text" name="email" id="email" placeholder="Email"
+                                    class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
+                            </div>
+
+                            <div class="flex flex-col mt-2">
+                                <label for="message" class="hidden">Message</label>
+                                <textarea id="message" name="message" placeholder="Type Message"
+                                    class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" ></textarea>
+                 
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" onclick="sendEmailToUser('comma')"
+                                class="md:w-32 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300">Send</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Send Email -->
+
+
+            </div>
+        </div>
+    </div>
+    <script>
+        async function sendEmailToUser(emailSentKey){
+
+            const subject = document.getElementById("subject").value ;
+            const email_list = document.getElementById("email").value ;
+            const message = document.getElementById("message").value ;
+            if(subject == undefined || subject == '' || subject == null) return;
+            if(email_list == undefined || email_list == '' || email_list == null) return;
+            if(message == undefined || message == '' || message == null) return;
+
+            const formData = new FormData();
+            formData.append("subject", subject);
+            formData.append("email_list", email_list);
+            formData.append("message", message);
+            formData.append("csrfmiddlewaretoken", document.getElementsByName("csrfmiddlewaretoken")[0].value);
+            
+            const response = await fetch("/api/email/many/", {
+                method : 'POST',
+                headers : {
+                    // "Content-Type" : "application/json",
+                    "X-CSRFToken" : document.getElementsByName("csrfmiddlewaretoken")[0].value
+                },
+                body : formData
+            });
+            const result = await response.json();
+            const data = JSON.parse(result);
+            if(data.status_code === 202){
+                alert(data.message);
+            }else{
+                alert(data.message);
+            }
+        }
+    </script>
+
+    {% include 'manage/sections/footer.html' %}
+
+</html>
+
+
+
+

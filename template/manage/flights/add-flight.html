@@ -1,0 +1,209 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+<title>Add Flight | Luaa</title>
+</head>
+
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+                {% if messages %}
+                    <div class="alerts-list absolute right-0 mr-4">
+                        {% for message in messages %}
+                            <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-xl text-base text-gray-900 dark:text-gray-50">Add a New Flight
+                        </h3>
+                    </div>
+
+                </div>
+
+
+
+                <!-- <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+
+                    </div>
+                </div> -->
+                <form action="" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <!-- component -->
+                    <section class="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-10">
+                        <h1 class="text-xl font-bold text-white capitalize dark:text-white">Flight information</h1>
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="origin">Origin</label>
+                                <input id="origin" type="text" name="origin" required list="airport_list"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="destination">Destination
+                                    </label>
+                                <input id="destination" type="text" name="destination" required list="airport_list"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="flight_number">Flight number</label>
+                                <input id="flight_number" type="text" autocapitalize="on" name="flight_number" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="departure_date">Departure Date
+                                </label>
+                                <input id="departure_date" type="date" name="departure_date" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="departure_time">Departure Time</label>
+                                <input id="departure_time" type="time" name="departure_time" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="arrival_date">Arrival Date
+                                </label>
+                                <input id="arrival_date" type="date" name="arrival_date" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="arrival_time">Arrival Time</label>
+                                <input id="arrival_time" type="time" name="arrival_time" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            
+                
+ 
+                           
+                        </div>
+
+                        <datalist id="airport_list">
+                            {% for x in airports %}
+                                <option value="{{x.iata_code}}">{{x.airport_name}}, {{x.airport_city}}, {{x.iata_code}}, , {{x.icao_code}}, {{x.airport_country}}</option>
+                            {% endfor %}
+                        </datalist>
+
+
+
+                    </section>
+
+                    <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-5">
+                        <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Seat information</h2>
+
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="total_seats">Total Seats</label>
+                                <input id="total_seats" type="number" name="total_seats" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="economy_seats">Econmoy Seats</label>
+                                <input id="economy_seats" type="number" name="economy_seats" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="business_seats">Business Seats</label>
+                                <input id="business_seats" type="number" name="business_seats" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="first_seats">First Class Seats
+                                    </label>
+                                <input id="first_seats" type="number" name="first_seats" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+                        </div>
+
+                        
+
+                    </section>
+
+                    <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-5">
+                        <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Fare information</h2>
+
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="economy_fare">Econmoy Fare</label>
+                                <input id="economy_fare" type="number" name="economy_fare" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="business_fare">Business Fare</label>
+                                <input id="business_fare" type="number" name="business_fare" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="first_fare">First Class Fare
+                                    </label>
+                                <input id="first_fare" type="number" name="first_fare" required
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                    <div class="flex justify-center text-xl mt-6">
+                        <button
+                            class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Save</button>
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+    <!-- <script>
+        function handleSeatConfigaration(){
+            const total_seats = document.getElementById("total_seats");
+            const economy_seats = document.getElementById("economy_seats");
+            const business_seats = document.getElementById("business_seats");
+            const first_seats = document.getElementById("first_seats");
+
+            if(total_seats.value < economy_seats.value + business_seats.value + first_seats.value){
+                total_seats.value = economy_seats.value + business_seats.value + first_seats.value
+            }
+
+        }
+    </script> -->
+
+    </html>

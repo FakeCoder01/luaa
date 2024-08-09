@@ -1,0 +1,115 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>All Bookings | Luaa</title>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Ticket Details
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="mt-4 mx-4">
+                    <div class="border rounded-lg border-dashed py-5 border-3 bg-green-300">
+                        <div class="p-3 pl-8 bg-green-300">
+                            <h5 class="text-gray-600">
+                                Fare Amount
+                                {% if payment.status %}
+                                    <div class="pl-20 ml-20 text-end inline" style="float: right;">
+                                        <a href="/tickets/{{payment.booking.uid}}/?user=staffUser" class="hover:bg-blue-200 text-center rounded-lg text-purple-700 text-2xl bg-gray-200 p-2">
+                                            Download Ticket
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </h5>
+                            <div class="flex flex-row items-end"> 
+                                <span class="text-gray-600 text-3xl font-bold">{{payment.amount}} </span>
+                                <span class="mt-2 text-gray-600 font-bold pl-1"> INR</span> 
+                            </div>
+                        </div>
+                        <div class="flex w-full mt-3 mb-3"> 
+                            <span class="border border-dashed w-full border-white"></span> 
+                        </div>
+                        <div {% if payment.status %} class="p-3 pl-8 space-y-5 bg-green-500" {% else %} class="p-3 pl-8 space-y-5 bg-red-500" {% endif %} >
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">Flight Number</span>
+                                <span class="text-blue-700 text-lg font-bold">
+                                    <a href="/manage/flights/{{booking.flight.uid}}">{{booking.flight}}</a>
+                                </span> 
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-gray-200">Payment ID #</span>
+                                <span class="text-white text-lg font-bold">{{payment.payment_id}}</span>
+                            </div>
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">PNR Code</span> 
+                                <span class="text-white text-lg font-bold">{{booking.pnr_code}}</span>
+                            </div>
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">Passenger</span> 
+                                <span class="text-blue-700 text-lg font-bold">
+                                    <a href="/manage/users/{{booking.profile.uid}}"> {{booking.person_name}} </a>
+                                </span>
+                            </div>
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">Contact</span> 
+                                <span class="text-white text-lg font-bold">
+                                    {{booking.email}} <br> {{payment.booking.mobile_number}}
+                                </span>
+                            </div>
+
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">Departure</span> 
+                                <span class="text-white text-lg font-bold">
+                                    {{booking.flight.departure_date }} {{booking.flight.departure_time }} <br> {{booking.flight.origin_airport}}
+                                </span>
+                            </div>
+
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">Arrival</span> 
+                                <span class="text-white text-lg font-bold">
+                                    {{booking.flight.arrival_date }} {{booking.flight.arrival_time }} <br> {{booking.flight.destination_airport}}
+                                </span>
+                            </div>
+
+                            <div class="flex flex-col"> 
+                                <span class="text-gray-200">Status</span> 
+                                {% if payment.status %} 
+                                    <span class="text-gray-900 w-20 text-center bg-gray-200 rounded-full text-lg font-bold"> Success </span>
+                                    <div class="pl-20 ml-20">
+                                        <a href="/tickets/{{payment.booking.uid}}/?user=staffUser"
+                                            class="hover:bg-blue-200 text-center rounded-lg text-purple-700 text-2xl bg-gray-200 p-2"> Download Ticket</a>
+                                    </div>
+                                {% else %} 
+                                    <span class="text-gray-900 w-20 text-center bg-gray-200 rounded-full text-lg font-bold"> Failed </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   
+  
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+</html>

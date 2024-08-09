@@ -1,0 +1,145 @@
+{% load static %}
+
+
+<!-- Sidebar -->
+<div
+    class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+    <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
+        <ul class="flex flex-col py-4 space-y-1">
+
+            <li>
+                <a href="/manage/"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide font-semibold truncate">Home</span>
+                </a>
+            </li>
+            <li class="px-5 hidden md:block">
+                <div class="flex flex-row items-center h-8">
+                    <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Flight Management</div>
+                </div>
+            </li>
+            <li>
+                <a href="/manage/flights"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+
+
+                        <svg viewBox="0 0 64 64" class="w- h-5" fill="white" stroke="currentColor" stroke-width="1">
+                            <path
+                                d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z">
+                            </path>
+                        </svg>
+
+
+
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">Flights</span>
+                </a>
+            </li>
+            <li>
+                <a href="/manage/tickets"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">Tickets</span>
+                    <!-- <span
+                    class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-500 bg-indigo-50 rounded-full">New</span> -->
+                </a>
+            </li>
+            <li class="px-5 hidden md:block">
+                <div class="flex flex-row items-center mt-5 h-8">
+                    <div class="text-sm font-light tracking-wide text-gray-400 uppercase">User management</div>
+                </div>
+            </li>
+            <li>
+                <a href="/manage/support/m/"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">Support</span>
+                </a>
+            </li>
+            <li>
+                <a href="/manage/users/"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                            </path>
+                        </svg>
+
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">Users</span>
+                    <!-- <span
+                    class="hidden md:block px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span> -->
+                </a>
+            </li>
+            <li class="px-5 hidden md:block">
+                <div class="flex flex-row items-center mt-5 h-8">
+                    <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Resource management</div>
+                </div>
+            </li>
+            <li>
+                <a href="/manage/payments"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+
+
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">Payments</span>
+                </a>
+            </li>
+            <li>
+                <a href="/manage/airports"
+                    class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                    <span class="inline-flex justify-center items-center ml-4">
+
+                        <svg class="w-5 h-6" fill="white" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path stroke-width="2"
+                                    d="M8 0.99804688L8 4.9980469L5 4.9980469 A 1.0001 1.0001 0 0 0 4 5.9980469L4 8.9980469 A 1.0001 1.0001 0 0 0 4.1679688 9.5527344L5.1308594 10.998047L5 10.998047 A 1.0001 1.0001 0 0 0 4 11.998047L4 18.998047L3 18.998047 A 1.0001 1.0001 0 0 0 2 19.998047L2 28.998047 A 1.0001 1.0001 0 0 0 3 29.998047L29.017578 29.998047 A 1.0001 1.0001 0 0 0 30.017578 28.998047L30.017578 19.998047 A 1.0001 1.0001 0 0 0 29.017578 18.998047L14 18.998047L14 11.998047 A 1.0001 1.0001 0 0 0 13 10.998047L12.869141 10.998047L13.832031 9.5527344 A 1.0001 1.0001 0 0 0 14 8.9980469L14 5.9980469 A 1.0001 1.0001 0 0 0 13 4.9980469L10 4.9980469L10 0.99804688L8 0.99804688 z M 20.255859 1.9980469L24.025391 5.7480469L22.501953 6.5820312C22.42144 6.6262379 22.362163 6.6936181 22.298828 6.7558594L19 6.171875L21.214844 8.4472656L21.695312 11.671875L23.140625 8.5058594C23.228409 8.4874455 23.316052 8.461384 23.400391 8.4160156L24.917969 7.5859375L25.644531 12.998047L27.736328 6.0449219L29.472656 5.09375C29.951656 4.83075 30.138625 4.2081719 29.890625 3.7011719C29.642625 3.1951719 29.055219 2.9957656 28.574219 3.2597656L26.837891 4.2089844L20.255859 1.9980469 z M 6 6.9980469L12 6.9980469L12 8.6953125L10.464844 10.998047L7.5351562 10.998047L6 8.6953125L6 6.9980469 z M 6 12.998047L7 12.998047L11 12.998047L12 12.998047L12 18.998047L6 18.998047L6 12.998047 z M 4 20.998047L28.017578 20.998047L28.017578 27.998047L26 27.998047L26 22.998047L23 22.998047L23 27.998047L4 27.998047L4 20.998047 z M 6 22.998047L6 24.998047L12 24.998047L12 22.998047L6 22.998047 z M 15 22.998047L15 24.998047L21 24.998047L21 22.998047L15 22.998047 z">
+                                </path>
+                            </g>
+                        </svg>
+
+                    </span>
+                    <span class="ml-2 text-sm tracking-wide truncate">Airports</span>
+                </a>
+            </li>
+        </ul>
+        <p class="mb-14 px-5 py-3 hidden md:block text-center text-xs">Luua</p>
+    </div>
+</div>
+<!-- ./Sidebar -->

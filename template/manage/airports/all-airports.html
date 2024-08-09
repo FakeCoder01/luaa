@@ -1,0 +1,106 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>Airports | Luaa</title>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+
+                {% if messages %}
+                    <div class="alerts-list absolute right-0 mr-4">
+                        {% for message in messages %}
+                            <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">All Airports
+                        </h3>
+                    </div>
+                    <div class="relative w-full max-w-full flex-grow flex-1 text-right">
+                        <button onclick="window.location.href='/manage/airports/add/';"
+                            class="text-2xl bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button">Add an Airport</button>
+                    </div>
+                </div>
+
+
+                <!-- Booking Table -->
+                <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr
+                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3">Name</th>
+                                        <th class="px-4 py-3">City</th>
+                                        <th class="px-4 py-3">IATA Code</th>
+                                        <th class="px-4 py-3">ICAO Code</th>
+                                        <th class="px-4 py-3">Country</th>
+                                        <th class="px-4 py-3">Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                    
+                                    {% for x in airports %}
+
+                                    
+                                    <tr onclick="window.location.href='/manage/airports/{{x.uid}}';" class="bg-gray-50 cursor-pointer dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        
+                                        
+                                        <td class="px-4 py-3 text-sm">{{x.airport_name}}</td>
+                                        <td class="px-4 py-3 text-sm">{{x.airport_city}}</td>
+
+                                        <td class="px-4 py-3 text-sm">{{x.iata_code}}</td>
+
+                                        <td class="px-4 py-3 text-sm">{{x.icao_code}}</td>
+                                        <td class="px-4 py-3 text-sm">{{x.airport_country}}</td>
+                                        <td class="px-4 py-3 text-sm">{{x.airport_type}}</td>
+
+                        
+
+
+
+                                    </tr>
+
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                            <span class="col-span-2"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Booking Table -->
+
+  
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+</html>

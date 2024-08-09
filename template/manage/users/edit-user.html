@@ -1,0 +1,190 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+<title>Edit {{user_details}} | Luaa</title>
+</head>
+
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+                {% if messages %}
+                    <div class="alerts-list absolute right-0 mr-4">
+                        {% for message in messages %}
+                            <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-xl text-base text-gray-900 dark:text-gray-50">Edit User ({{user_details}}) 
+                        </h3>
+                    </div>
+
+                </div>
+
+
+<!-- 
+                <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        
+                    </div>
+                </div> -->
+                <form action="" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <!-- component -->
+                    <section class="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-10">
+                        <h1 class="text-xl font-bold text-white capitalize dark:text-white">Personal information</h1>
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="first_name">First Name</label>
+                                <input id="first_name" type="text" name="first_name" required value="{{user_details.user.first_name}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="last_name">Last Name
+                                    </label>
+                                <input id="last_name" type="text" name="last_name" required value="{{user_details.user.last_name}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="gender">Gender</label>
+                                <select name="gender" id="gender"
+                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                    <option disabled>Select gender</option>
+                                    <option value="{{user_details.gender}}">{{user_details.gender}}</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="citizenship">Citizenship
+                                </label>
+                                <input id="citizenship" type="text" name="citizenship" list="country_list" required value="{{user_details.citizenship}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-white dark:text-gray-200" for="passport_number">Passport Number</label>
+                                <input id="passport_number" type="text" autocapitalize="on" name="passport_number" required value="{{user_details.passport_number}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="block text-white dark:text-gray-200" for="profile_active">Profile Active : {% if user_details.profile_active %} <b>Active</b> {% else %} <b>Not Active</b> {% endif%}
+                                </label>
+                                <input id="profile_active" type="checkbox" name="profile_active" {% if user_details.profile_active %} checked {% endif%}
+                                  value="1"  class="w-5 h-5 mx-3 my-4 bg-purple-200">
+                                    <span class="text-blue-300">Unchecking this will <b>Deactivate</b> the Account</span>
+                            </div>
+                            
+                
+ 
+                           
+                        </div>
+
+
+                    </section>
+
+                    <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-5">
+                        <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Contact information</h2>
+
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="email">Email</label>
+                                <input id="email" type="email" name="email" required value="{{user_details.user.email}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="mobile_number">Mobile number</label>
+                                <input id="mobile_number" type="tel" name="mobile_number" required value="{{user_details.mobile_number}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+              
+                        </div>
+
+                        
+
+                    </section>
+
+                    <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mt-5">
+                        <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Account information</h2>
+
+
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Username</label>
+                                <input id="username" type="text" name="username" required value="{{user_details.user.username}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="userid">User ID</label>
+                                <input id="userid" type="text" name="userid" required value="{{user_details.uid}}"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="password">Type new password</label>
+                                <input id="password" type="password" name="password"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="confirm_password">Confirm password
+                                    </label>
+                                <input id="confirm_password" type="password" name="confirm_password"
+                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        <input type="checkbox" name="declaration" value="1" id="declaration" class="w-4 h-4" required> <label class="mx-3 cursor-pointer" for="declaration">Change the details for this user. Old data can not be recovered.</label>
+
+
+                    </section>
+
+                    <div class="flex justify-center text-xl mt-6">
+                        <button id="update_btn" type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">
+                            Update
+                        </button>
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+    </html>

@@ -1,0 +1,111 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>Payments | Luaa</title>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">All Payments
+                        </h3>
+                    </div>
+                </div>
+
+
+                <!-- Booking Table -->
+                <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr
+                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3">Payment Id</th>
+                                        <th class="px-4 py-3">Customer</th>
+                                        <th class="px-4 py-3">Flight</th>
+                                        <th class="px-4 py-3">Amount</th>
+                                        <th class="px-4 py-3">PNR Code</th>
+                                        <th class="px-4 py-3">Date & Time</th>
+                                        <th class="px-4 py-3">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                    
+                                    {% for x in payments %}
+
+                                    
+                                    <tr onclick="window.location.href='/manage/tickets/{{x.booking.uid}}?rdr=PAYMENT&payment_id={{x.payment_id}}';" class="bg-gray-50 cursor-pointer dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+
+                                        <td class="px-4 py-3 text-sm">{{x.payment_id}}</td>
+                                        
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div>
+                                                    <p class="font-semibold">{{x.profile}}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{x.booking.person_name}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-4 py-3 text-sm">{{x.flight}} <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">({{x.booking.seat_type}})
+                                        </span></td>
+                                        <td class="px-4 py-3 text-sm">{{x.amount}}</td>
+                                        <td class="px-4 py-3 text-sm">{{x.booking.pnr_code}}</td>
+                                        <td class="px-4 py-3 text-sm">{{x.created_at}}</td>
+
+                                        <td class="px-4 py-3">
+
+                                            {% if x.status %}
+                                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                                    Success
+                                                </span>
+                                            {% else %}
+                                                <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                                                    Error
+                                                </span>
+                                            {% endif %}
+                                        </td>
+
+
+                                       
+
+                                    </tr>
+
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                            <span class="col-span-2"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Booking Table -->
+
+  
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+</html>

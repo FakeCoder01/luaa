@@ -1,0 +1,12 @@
+django
+requests
+razorpay
+daphne
+django-rest-framework
+django-cors-headers
+python-dotenv
+psycopg2-binary
+celery
+reportlab
+redis
+channels

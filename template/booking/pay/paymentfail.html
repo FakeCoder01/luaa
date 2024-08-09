@@ -1,0 +1,60 @@
+{% include 'booking/sections/header.html' %}
+{% load static %}
+<title>{{page_title}}</title>
+
+</head>
+
+<body>
+    {% include 'booking/sections/nav-bar.html' %}
+    <div class="min-h-screen flex">
+
+        {% include 'booking/sections/side-bar.html' %}
+
+        {% if messages %}
+        <div class="alerts-list absolute right-0 mr-4">
+            {% for message in messages %}
+            <div onclick="this.style.display='none';"
+                class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                {{message}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+
+
+        <main class="flex-1 min-w-0 px-2">
+
+            <section class="h-screen bg-gray-100/50 pt-8">
+              
+
+
+                <!-- component -->
+                <!-- This is an example component -->
+                <div class="max-w-2xl mx-auto">
+
+                    <div
+                        class="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-red-200 dark:border-gray-700">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold leading-none text-dark-900 dark:text-dark">Payment History
+                            </h3>
+                            <a href="/support" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                                Chat
+                            </a>
+                        </div>
+                        <div class="flow-root">
+                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <h1>Payment Fail</h1>
+                            </ul>
+                        </div>
+                    </div>
+       
+                </div>
+            </section>
+
+
+        </main>
+    </div>
+
+    {% include 'booking/sections/footer.html' %}

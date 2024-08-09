@@ -1,0 +1,115 @@
+{% include 'booking/sections/header.html' %}
+{% load static %}
+<title>{{page_title}}</title>
+
+<!-- User Page -->
+</head>
+
+<body>
+    {% include 'booking/sections/nav-bar.html' %}
+
+    {% if messages %}
+    <div class="alerts-list absolute right-0 mr-4">
+        {% for message in messages %}
+        <div onclick="this.style.display='none';"
+            class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+            {{message}}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+
+
+
+    <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-4 pt-2">
+
+        <!-- Component Start -->
+        <div class="flex flex-col flex-grow w-full max-w-xl bg-red-100 shadow-xl rounded-lg overflow-hidden">
+    
+                <p class="text-center"><button id="old-btn" class="my-3 px-3 py-1 rounded font-semibold text-white ml-20 bg-purple-400 hover:bg-purple-500" onclick="javascript:ShowOlderChatMessage('{{request.user.userprofile.uid}}');">Older Chats</button></p>
+            <div class="flex flex-col flex-grow h-0 p-4 overflow-auto" id="messages">
+
+                
+            </div>
+
+            <div class="bg-gray-300 p-4">
+                <form id="form" autocomplete="off">
+                    <input class="flex items-center h-10 w-full rounded px-3 text-sm" type="text" id="message" 
+                        placeholder="Type your message…" name="message" >
+                </form>
+            </div>
+        </div>
+        <!-- Component End  -->
+
+        
+
+    </div>
+
+
+        <script type="text/javascript">
+            const client_type = 'u';
+            let url = `ws://${window.location.host}/ws/socket-server/chat/?group={{request.user.userprofile.uid}}`
+
+            const chatSocket = new WebSocket(url)
+
+            chatSocket.onmessage = function (e) {
+                let data = JSON.parse(e.data)
+                // console.log('Data:', data)
+
+                if (data.type === 'chat') {
+                    let messages = document.getElementById('messages');
+
+
+                    if (data.sender === 'user'){
+                        messages.insertAdjacentHTML('beforeend', 
+                            `<div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
+                                <div>
+                                    <div class="bg-red-600 text-white p-3 rounded-l-lg rounded-br-lg">
+                                        <p class="text-sm">${data.message} </p>
+                                    </div>
+                                    <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+                                </div>
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                            </div>`
+                        );
+                    }
+                    else if(data.sender === 'manager'){
+                        messages.insertAdjacentHTML('beforeend', 
+                            `<div class="flex w-full mt-2 space-x-3 max-w-xs">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300">
+                                    <img src="{% static '/images/logo/logo-icon.png' %}" alt="Icon" class="h-10 w-10 rounded-full" srcset="">
+                                </div>
+                                <div>
+                                    <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                                        <p class="text-sm">${data.message}</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+                                </div>
+                            </div> `
+                        );
+                    }
+                    else{
+
+                    }
+                    
+                }
+            }
+
+            let form = document.getElementById('form')
+            form.addEventListener('submit', (e) => {
+                e.preventDefault()
+                let message = e.target.message.value
+                chatSocket.send(JSON.stringify({
+                    'message': message,
+                    'chat_group_id': "{{request.user.userprofile.uid}}",
+                    'sender': "user"
+                }))
+                form.reset()
+            })
+
+        </script>
+
+
+<script src="/static/js/older-chats.js"></script>
+        {% include 'booking/sections/footer.html' %}

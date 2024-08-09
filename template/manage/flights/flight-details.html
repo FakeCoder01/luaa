@@ -1,0 +1,358 @@
+{% include 'manage/sections/header.html' %}
+{% load static %}
+
+    <title>{{flight.flight_number}} | Luaa</title>
+</head>
+<body>
+
+
+    <div x-data="setup()" :class="{ 'dark': isDark }">
+        <div
+            class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+
+            {% include 'manage/sections/nav-bar.html' %}
+            {% include 'manage/sections/side-bar.html' %}
+            
+
+            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+
+                {% if messages %}
+                    <div class="alerts-list absolute right-0 mr-4">
+                        {% for message in messages %}
+                            <div onclick="this.style.display='none';" class="p-2 bg-blue-200 text-blue-800 cursor-pointer p-4 text-sm rounded border border-blue-300 my-3">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-5 pt-3">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Flight Details of {{flight.flight_number}}
+                        </h3>
+                    </div>
+                    <div class="relative w-full max-w-full flex-grow flex-1 text-right">
+                        <button onclick="window.location.href='change/';"
+                            class="bg-blue-500 text-lg dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button">Edit</button>
+                    </div>
+                </div>
+
+
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
+
+                    <!-- Origin/Destination -->
+                    <div class="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+                        <div class="rounded-t mb-0 px-0 border-0">
+                            <div class="flex flex-wrap items-center px-4 py-2">
+                                <div class="relative w-full max-w-full flex-grow flex-1">
+                                    <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Origin and Destination details
+                                    </h3>
+                                </div>
+          
+                            </div>
+                            <div class="block w-full overflow-x-auto">
+                                <table class="items-center w-full bg-transparent border-collapse">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Type</th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Origin</th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Destination</th>
+                             
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                IATA and ICAO </th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.origin_airport.iata_code}} / {{flight.origin_airport.icao_code}}</td>
+                                                <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.destination_airport.iata_code}} / {{flight.destination_airport.icao_code}}</td>
+                                        </tr>
+
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                City, Country</th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.origin_airport.airport_city}}, {{flight.origin_airport.airport_country}}</td>
+                                                <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.destination_airport.airport_city}}, {{flight.destination_airport.airport_country}}</td>
+                                        </tr>
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Airport</th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.origin_airport.airport_name}}</td>
+                                                <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.destination_airport.airport_name}}</td>
+                                        </tr>
+
+
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Date</th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.departure_date}}</td>
+                                                <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.arrival_date}}</td>
+                                        </tr>
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Time</th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.departure_time}}</td>
+                                                <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.arrival_time}}</td>
+                                        </tr>
+
+
+
+                              
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .Origin/Destination -->
+
+
+                    <!-- Seat/Fare  -->
+                    <div
+                        class="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+                        <div class="rounded-t mb-0 px-0 border-0">
+                            <div class="flex flex-wrap items-center px-4 py-2">
+                                <div class="relative w-full max-w-full flex-grow flex-1">
+                                    <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Seat and Fare details
+                                    </h3>
+                                </div>
+                     
+                            </div>
+                            <div class="block w-full overflow-x-auto">
+                                <table class="items-center w-full bg-transparent border-collapse">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Type</th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                                Economy </th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                                                Business
+                                            </th>
+                                            <th
+                                                class="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ">
+                                                First
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+             
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Total Seats</td>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.seat_config.economy_seats}}</td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.seat_config.business_seats}}
+                                            </td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{flight.seat_config.first_seats}}
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Fare </td>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.pricing.economy}}</td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.pricing.business}}
+                                            </td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.pricing.first}}
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Booked Seats</td>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.seat_information.booked.economy}}</td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.seat_information.booked.business}}
+                                            </td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.seat_information.booked.first}}
+                                            </td>
+                                        </tr>
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Empty Seats </td>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.seat_information.available.economy}}</td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.seat_information.available.business}}
+                                            </td>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{all.seat_information.available.first}}
+                                            </td>
+                                        </tr>
+
+                                        <tr class="text-gray-700 dark:text-gray-100 cursor-pointer hover:bg-red-400 hover:bg-opacity-5">
+                                            <th
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                                                Maximun Income </th>
+                                            <td
+                                                class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{income.max}}</td>
+                                            <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                Current Income
+                                            </th>
+                                            <td class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{income.current}}
+                                            </td>
+                                        </tr>
+
+
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./Destination -->
+
+                </div>
+
+
+
+                <div class="flex flex-wrap bg-black-500 items-center px-4 py-2">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                        <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">Flight Bookings
+                        </h3>
+                    </div>
+             
+                </div>
+
+
+                <!-- Booking Table -->
+                <div class="mt-4 mx-4">
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr
+                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                        <th class="px-4 py-3">Customer Name</th>
+                                        <th class="px-4 py-3">Flight Number</th>
+                                        <th class="px-4 py-3">PNR Code</th>
+                                        <th class="px-4 py-3">Route</th>
+                                        <th class="px-4 py-3">Departure</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                    
+                                    {% for x in bookings %}
+
+                                    
+                                    <tr onclick="window.location.href='/manage/tickets/{{x.uid}}';" class="bg-gray-50 cursor-pointer dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        
+                                        
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div>
+                                                    <p class="font-semibold">{{x.profile}}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{x.person_name}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-4 py-3 text-sm">{{x.flight}} <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">({{x.seat_type}})
+                                        </span></td>
+                                        <td class="px-4 py-3 text-sm">{{x.pnr_code}}</td>
+                                        <td class="px-4 py-3 text-sm">{{x.flight.origin_airport.iata_code}} - {{x.flight.destination_airport.iata_code}}</td>
+
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div>
+                                                    <p class="font-semibold">{{x.flight.departure_date}}</p>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{x.flight.departure_time}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                       
+
+                                    </tr>
+
+
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                            <span class="col-span-2"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Booking Table -->
+
+  
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'manage/sections/footer.html' %}
+
+</html>
