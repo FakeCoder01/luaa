@@ -264,8 +264,15 @@ def edit_flight(request, flight_id):
 @login_required(login_url='/manage/login/')    
 @staff_member_required(login_url='/manage')
 def delete_flight(request, flight_id):
-    pass
-
+    try:
+        if Flight.objects.filter(uid=flight_id).exists():
+            if request.method == 'POST' or request.method == 'DELETE':
+                Flight.objects.get(uid=flight_id).delete()
+                messages.success(request, "Flight was deleted")
+                return redirect("/manage/flights/")
+        return HttpResponseNotFound()
+    except Exception as err:
+        return HttpResponse("Something went wrong")
 
 
 ### All bookings of a particular flight
