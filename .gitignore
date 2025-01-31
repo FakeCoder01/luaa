@@ -9,3 +9,6 @@ migrations/
 .env
 .zip
 venv/
+yt.py
+cc.py
+.vscode/
